@@ -10,7 +10,8 @@ const result = () => {
   return (
     <div className="container">
     <div className="image-container">
-      <img src={img1} alt="Your Image" />
+      {/* Live feed */}
+      <img src={img1} alt="Live feed" />
     </div>
     <div className="output-container">
       <div className="output-box">
