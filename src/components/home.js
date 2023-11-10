@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from "react-router-dom";
 import DropdownMenu from './dropdownMenu';
 
 const Home = () => {
@@ -29,9 +30,12 @@ const Home = () => {
           <img src={selectedOption.image} alt={selectedOption.label} />
           <button onClick={handleSubmit}>Compare</button>
           <p>
-            <a href="#" onClick={() => console.log('Add new design clicked!')}>
-              Click here,
-            </a>{' '}
+            
+            <a  href="#">
+            <NavLink to="/addnew">
+              Addnew
+            </NavLink>
+          </a>
             to add a new design.
           </p>
         </div>
