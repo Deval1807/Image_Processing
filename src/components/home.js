@@ -5,11 +5,12 @@ import DropdownMenu from "./dropdownMenu";
 const Home = () => {
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
+  const fetchURL = `${process.env.REACT_APP_BACKEND_API}/getImages`;
 
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const response = await fetch("http://localhost:3001/getImages");
+        const response = await fetch(fetchURL);
         if (response.ok) {
           const data = await response.json();
           setOptions(data);

@@ -5,8 +5,11 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(cors());
+
+app.use(require('./router/color'));
+app.use(require('./router/pattern'));
 
 app.post("/upload", async (req, res) => {
   try {
@@ -58,6 +61,7 @@ app.get("/getImages", async(req, res) => {
         res.status(500).send("Internal Server Error");
       }
 });
+
 
 app.get("/", (req, res) => {
   res.send("Hello World");

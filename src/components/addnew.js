@@ -1,16 +1,17 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, React } from "react";
 import Webcam from "react-webcam";
 
-const Addnew = () => {
+const Addnew = () => { 
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
   const [name, setName] = useState("");
+  const uploadURL = `${process.env.REACT_APP_BACKEND_API}/upload`;
 
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
     try {
-      const response = await fetch("http://localhost:3001/upload", {
+      const response = await fetch(uploadURL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
