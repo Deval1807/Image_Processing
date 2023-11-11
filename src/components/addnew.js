@@ -10,7 +10,7 @@ const Addnew = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
     try {
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("http://localhost:3001/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

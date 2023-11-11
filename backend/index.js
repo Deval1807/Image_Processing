@@ -1,18 +1,19 @@
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const cors = require("cors");
+require('dotenv').config();
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(express.json());
-app.use(cors()); 
+app.use(cors());
 
 app.post("/upload", async (req, res) => {
   try {
     const image = req.body.image;
     const name = req.body.name;
 
-    const uri = `mongodb+srv://hrishikesh17:${encodeURIComponent("Hr#172003")}@cluster0.p4htmk9.mongodb.net/?retryWrites=true&w=majority`;
+    const uri = `mongodb+srv://${process.env.DbUserName}:${encodeURIComponent(process.env.DbPasswd)}@cluster0.p4htmk9.mongodb.net/?retryWrites=true&w=majority`;
     const client = new MongoClient(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -33,6 +34,29 @@ app.post("/upload", async (req, res) => {
     console.error("Failed to upload image", err);
     res.status(500).send("Internal Server Error");
   }
+});
+
+app.get("/getImages", async(req, res) => {
+    try {    
+        const uri = `mongodb+srv://${process.env.DbUserName}:${encodeURIComponent(process.env.DbPasswd)}@cluster0.p4htmk9.mongodb.net/?retryWrites=true&w=majority`;
+        const client = new MongoClient(uri, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        });
+    
+        await client.connect();
+    
+        const database = client.db("SunmicaDataBase");
+        const collection = database.collection("AllSunmicas");
+    
+        const data = await collection.find({}).toArray();
+        res.json(data);
+        console.log(data);
+
+      } catch (err) {
+        console.error("Error getting the data", err);
+        res.status(500).send("Internal Server Error");
+      }
 });
 
 app.get("/", (req, res) => {

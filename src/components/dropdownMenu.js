@@ -19,7 +19,7 @@ const DropdownMenu = ({ options, onSelect }) => {
     setSearchTerm(term);
 
     const filtered = options.filter((option) =>
-      option.label.toLowerCase().includes(term)
+      option.name.toLowerCase().includes(term)
     );
     setFilteredOptions(filtered);
     setDropdownVisible(true);
@@ -58,14 +58,20 @@ const DropdownMenu = ({ options, onSelect }) => {
         <ul className="options">
           {filteredOptions.map((option) => (
             <li
-              key={option.label}
+              key={option._id}
               onClick={() => handleSelectOption(option)}
               className={selectedOption === option ? 'selected' : ''}
             >
-              {option.image && (
-                <img src={option.image} alt={option.label} className="option-image" />
-              )}
-              {option.label}
+              <span className="option-details">
+                {option.image && (
+                  <img
+                    src={option.image}
+                    alt={option.name}
+                    className="option-image"
+                  />
+                )}
+                <span className="option-label">{option.name}</span>
+              </span>
             </li>
           ))}
         </ul>
@@ -74,4 +80,4 @@ const DropdownMenu = ({ options, onSelect }) => {
   );
 };
 
-export default DropdownMenu;
+export default DropdownMenu;
